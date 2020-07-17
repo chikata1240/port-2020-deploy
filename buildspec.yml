@@ -7,7 +7,8 @@ phases:
       - pip install awscli --upgrade
       - aws --version
       - $(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})
-      # - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 245423107264.dkr.ecr.ap-northeast-1.amazonaws.com
+      - IMAGE_NAME_PHP-FPM_container=port-2020-container-phpfpm
+      - IMAGE_NAME_NGINX_container=port-2020-container-nginx
       - IMAGE_NAME_PHP_FPM=php-fpm
       - IMAGE_NAME_NGINX=nginx
       - REPOSITORY_URL_PHP_FPM=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${PROJECT_NAMESPACE}/${IMAGE_NAME_PHP_FPM}
@@ -27,8 +28,8 @@ phases:
       - docker push ${REPOSITORY_URL_PHP_FPM}:latest
       - docker push ${REPOSITORY_URL_NGINX}:latest
       - echo Writing image definitions file...
-      - IMAGE_DIFINITION_PHP_FPM="{\"name\":\"${IMAGE_NAME_PHP_FPM}\",\"imageUri\":\"${REPOSITORY_URI_PHP_FPM}:${IMAGE_TAG}\"}"
-      - IMAGE_DIFINITION_NGINX="{\"name\":\"${IMAGE_NAME_NGINX}\",\"imageUri\":\"${REPOSITORY_URI_NGINX}:${IMAGE_TAG}\"}"
+      - IMAGE_DIFINITION_PHP_FPM="{\"name\":\"${IMAGE_NAME_PHP-FPM_container}\",\"imageUri\":\"${REPOSITORY_URI_PHP_FPM}:latest\"}"
+      - IMAGE_DIFINITION_NGINX="{\"name\":\"${IMAGE_NAME_NGINX_container}\",\"imageUri\":\"${REPOSITORY_URI_NGINX}:latest\"}"
       - echo "[${IMAGE_DIFINITION_PHP_FPM},${IMAGE_DIFINITION_NGINX}]" > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
