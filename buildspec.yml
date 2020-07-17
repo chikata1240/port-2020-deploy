@@ -30,8 +30,8 @@ phases:
       - docker push ${REPOSITORY_URI_NGINX}:latest
       - docker push ${REPOSITORY_URI_NGINX}:$IMAGE_TAG
       - echo Writing image definitions file...
-      - IMAGE_DIFINITION_PHP_FPM="{\"name\":\"${IMAGE_NAME_PHP_FPM}\",\"imageUri\":\"${REPOSITORY_URI_PHP_FPM}:${IMAGE_TAG}\"}"
-      - IMAGE_DIFINITION_NGINX="{\"name\":\"${IMAGE_NAME_PHP_FPM}\",\"imageUri\":\"${REPOSITORY_URI_NGINX}:${IMAGE_TAG}\"}"
+      - IMAGE_DIFINITION_PHP_FPM="{\"name\":\"port-2020-container-phpfpm\",\"imageUri\":\"${REPOSITORY_URI_PHP_FPM}:${IMAGE_TAG}\"}"
+      - IMAGE_DIFINITION_NGINX="{\"name\":\"port-2020-container-nginx\",\"imageUri\":\"${REPOSITORY_URI_NGINX}:${IMAGE_TAG}\"}"
       - echo "[${IMAGE_DIFINITION_PHP_FPM},${IMAGE_DIFINITION_NGINX}]" > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
